@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET test page. */
-router.get('/test', function(req, res, next) {
-  res.send('Some stuff come here');
+router.get('/stuff', function(req, res, next) {
+  res.render('stuff', { title: 'Express' });
 });
 
 module.exports = router;
