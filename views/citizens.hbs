@@ -1,0 +1,213 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>All citizens</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="active">
+                <strong>All citizens</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+        <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Citizen list</h5>
+                <div class="ibox-tools">
+                    <a href='/new-citizen' class='btn btn-primary'> <i class="fa fa-plus"></i> New citizen</a>
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+	            <div class="table-responsive">
+		            <table class="table table-striped table-bordered table-hover dataTables-example" >
+			            <thead>
+				            <tr>
+				                <th>Names</th>
+				                <th>Phone</th>
+				                <th>Provice</th>
+				                <th>District</th>
+				                <th>Umurenge</th>
+				                <th>*</th>
+				            </tr>
+			            </thead>
+			            <tbody>
+				            <tr class="gradeX">
+				                <td>Trident</td>
+				                <td>Internet
+				                    Explorer 4.0
+				                </td>
+				                <td>Win 95+</td>
+				                <td class="center">4</td>
+				                <td class="center">X</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeC">
+				                <td>Trident</td>
+				                <td>Internet
+				                    Explorer 5.0
+				                </td>
+				                <td>Win 95+</td>
+				                <td class="center">5</td>
+				                <td class="center">C</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Trident</td>
+				                <td>Internet Explorer 7</td>
+				                <td>Win XP SP2+</td>
+				                <td class="center">7</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Trident</td>
+				                <td>AOL browser (AOL desktop)</td>
+				                <td>Win XP</td>
+				                <td class="center">6</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Firefox 1.0</td>
+				                <td>Win 98+ / OSX.2+</td>
+				                <td class="center">1.7</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Firefox 1.5</td>
+				                <td>Win 98+ / OSX.2+</td>
+				                <td class="center">1.8</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Firefox 2.0</td>
+				                <td>Win 98+ / OSX.2+</td>
+				                <td class="center">1.8</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Firefox 3.0</td>
+				                <td>Win 2k+ / OSX.3+</td>
+				                <td class="center">1.9</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Camino 1.0</td>
+				                <td>OSX.2+</td>
+				                <td class="center">1.8</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Camino 1.5</td>
+				                <td>OSX.3+</td>
+				                <td class="center">1.8</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+				            <tr class="gradeA">
+				                <td>Gecko</td>
+				                <td>Netscape 7.2</td>
+				                <td>Win 95+ / Mac OS 8.6-9.2</td>
+				                <td class="center">1.7</td>
+				                <td class="center">A</td>
+				                <td><span class='fa fa-edit'></span></td>
+				            </tr>
+			            </tbody>
+			            <tfoot>
+			            <tr>
+			                <th>Names</th>
+			                <th>Phone</th>
+			                <th>Provice</th>
+			                <th>District</th>
+			                <th>Umurenge</th>
+			                <th>*</th>
+			            </tr>
+			            </tfoot>
+		            </table>
+	            </div>
+	        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page-Level Scripts -->
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="/template/js/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-example').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
+
+                {extend: 'print',
+                 customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( 'http://webapplayers.com/example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
