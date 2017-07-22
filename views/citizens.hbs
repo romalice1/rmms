@@ -41,16 +41,17 @@
 				            </tr>
 			            </thead>
 			            <tbody>
-				            <tr class="gradeX">
-				                <td>Trident</td>
-				                <td>Internet
-				                    Explorer 4.0
-				                </td>
-				                <td>Win 95+</td>
-				                <td class="center">4</td>
-				                <td class="center">X</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
+			            	{{#each citizens as |citizen|}}
+					            <tr class="gradeX">
+					                <td>{{citizen.first_name}} {{citizen.last_name}}</td>
+					                <td>{{citizen.phone}}</td>
+					                <td>{{citizen.province}}</td>
+					                <td class="center">{{citizen.district}}</td>
+					                <td class="center">{{citizen.umurenge}}</td>
+					                <td><span class='fa fa-edit'></span></td>
+					            </tr>
+				            {{/each}}
+				           
 				            <tr class="gradeC">
 				                <td>Trident</td>
 				                <td>Internet

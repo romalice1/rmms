@@ -6,7 +6,7 @@
                 <a href="/">Home</a>
             </li>
             <li class="active">
-                <strong>New citizens</strong>
+                <strong>New citizen</strong>
             </li>
         </ol>
     </div>
@@ -28,161 +28,171 @@
                 </div>
                 <div class="ibox-content">
                 	<div class='alert alert-success alert-dismissible col-sm-offset-2'>Your information status will be here</div>
-                    <form method="get" class="form-horizontal">
+                    <form method="POST" action="/create-new-citizen" class="form-horizontal">
                         <div class='row'>
                             <div class='col-md-12'>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">First name*</label>
                                     <div class="col-sm-10">
-                                    	<input type="text" class="form-control" placeholder='First name'>
+                                    	<input name="first_name" type="text" class="form-control" placeholder='First name'>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Last name* </label>
                                     <div class="col-sm-10">
-                                    	<input type="text" class="form-control" placeholder='Last name'> 
+                                    	<input name="last_name" type="text" class="form-control" placeholder='Last name'> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">National ID* </label>
                                     <div class="col-sm-10">
-                                    	<input type="password" class="form-control" name="password" placeholder='National Identification Number'>
+                                    	<input name="nid" type="number" class="form-control" name="password" placeholder='National Identification Number'>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Date of Birth* </label>
                                     <div class="col-sm-10">
-                                    	<input type="date" class="form-control" placeholder='yyy-mm-dd'>
+                                    	<input name="dob" type="date" class="form-control" placeholder='yyy-mm-dd'>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Place of birth* </label>
                                     <div class="col-sm-10">
-                                    	<input type="password" class="form-control" name="password" placeholder='National Identification Number'>
+                                    	<input name="place_of_birth" type="text" class="form-control" name="password" placeholder='Place of birth'>
                                     	<span class="help-block m-b-none">Province and District</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Phone number* </label>
                                     <div class="col-sm-10">
-                                    	<input type="text" placeholder="placeholder" class="form-control">
+                                    	<input name="phone_number" type="text" placeholder="placeholder" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Email</label>
                                     <div class="col-sm-10">
-                                    	<input type="text" placeholder="placeholder" class="form-control">
+                                    	<input name="email" type="email" placeholder="placeholder" class="form-control">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                            	<label class="col-sm-2 control-label">Country</label>
-                                <div class="col-sm-10">
-                                	<input disabled type="text" value='Rwanda' class="form-control">
+                            <div class='col-md-12'>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Country</label>
+                                    <div class="col-sm-10">
+                                        <select name='country' class="form-control">
+                                            <option value='1'>Rwanda</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Province*</label>
+                                    <div class="col-sm-10">
+                                    	<select id="selectProvinces" name='province' class='form-control' onChange="pullDistricts()">
+                                            <option>---select---</option>
+                                            {{#each provinces as |province|}}
+                                    		  <option value={{province.province_id}}>{{province.province_name}}</option>
+                                            {{/each}}
+                                    	</select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">District*</label>
+                                    <div class="col-sm-10">
+                                    	<select name='district' class='form-control'>
+                                    		<option value=''>-- select --</option>
+                                    	</select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Umurenge*</label>
+                                    <div class="col-sm-10">
+                                    	<select name='umurenge' class='form-control'>
+                                    		<option value=''>-- select --</option>
+                                    	</select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Akagari*</label>
+                                    <div class="col-sm-10">
+                                    	<select name='akagari' class='form-control'>
+                                    		<option value=''>-- select --</option>
+                                    	</select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Cell / Umudugudu*</label>
+                                    <div class="col-sm-10">
+                                    	<input name='umudugudu' type='text' placeholder='Umudugudu' class='form-control'>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Photo*</label>
+                                    <div class="col-sm-10">
+                                        <input name='photo' type='file' class='form-control'>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                            	<label class="col-sm-2 control-label">Province*</label>
-                                <div class="col-sm-10">
-                                	<select name='province' class='form-control' disabled>
-                                		<option value=''>Kigali City</option>
-                                		<option value='' disabled>North Province</option>
-                                		<option value=''disabled>South Province</option>
-                                		<option value=''disabled>Eastern Province</option>
-                                		<option value=''disabled>Western Province</option>
-                                	</select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<label class="col-sm-2 control-label">District*</label>
-                                <div class="col-sm-10">
-                                	<select name='province' class='form-control'>
-                                		<option value=''>-- select --</option>
-                                	</select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<label class="col-sm-2 control-label">Umurenge*</label>
-                                <div class="col-sm-10">
-                                	<select name='province' class='form-control'>
-                                		<option value=''>-- select --</option>
-                                	</select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<label class="col-sm-2 control-label">Akagari*</label>
-                                <div class="col-sm-10">
-                                	<select name='province' class='form-control'>
-                                		<option value=''>-- select --</option>
-                                	</select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<label class="col-sm-2 control-label">Cell / Umudugudu*</label>
-                                <div class="col-sm-10">
-                                	<input name='umudugudu' type='text' placeholder='Umudugudu' class='form-control'>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Photo*</label>
-                                <div class="col-sm-10">
-                                    <input name='photo' type='file' class='form-control'>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <h5><i class='fa fa-pied-piper-alt'></i> Parents information</h5>
+                        </div>
+                        <div class="ibox-title">
+                            <h5><i class='fa fa-child'></i> Parents information<small> All fields with (*) are required.</small></h5>
+                        </div>
+                        <div class='ibox-content'>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Father's full name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Full name" class="form-control">
+                                    <input name="father" type="text" placeholder="Full name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Mother's full name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Full name" class="form-control">
+                                    <input name="mother" type="text" placeholder="Full name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Current Residence</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Full address" class="form-control">
+                                    <input name="parent_curr_residence" type="text" placeholder="Full address" class="form-control">
                                     <span class="help-block m-b-none">Province, District, Umurenge, Akagari, Umudugudu</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Contact phone number</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="07xxxxxxxxxx" class="form-control">
+                                    <input name="parents_contact_phone" type="text" placeholder="07xxxxxxxxxx" class="form-control">
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="ibox-title">
+                            <h5><i class='fa fa-briefcase'></i> Employer's information <small>All fields with (*) are required.</small></h5>
+                        </div>
+                        <div class='ibox-content'>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Employer's full name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Full name" class="form-control">
+                                    <input name="employer_name" type="text" placeholder="Full name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">National ID</label>
                                 <div class="col-sm-10">
-                                    <input type="number" placeholder="National ID" class="form-control">
+                                    <input name="employer_nid" type="number" placeholder="National ID" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Phone number</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="07xxxxxxxx" class="form-control">
+                                    <input name="employer_phone_number" type="text" placeholder="07xxxxxxxx" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Current residence</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Full address" class="form-control">
+                                    <input name="employer_curr_residence" type="text" placeholder="Full address" class="form-control">
                                     <span class="help-block m-b-none">Province, District, Umurenge, Akagari, Umudugudu</span>
                                 </div>
                             </div>
@@ -197,3 +207,6 @@
         </div>
     </div>
 </div>
+
+<!--- Helper Javascript--->
+<script type="text/javascript" src='/javascripts/custom.js'></script>
