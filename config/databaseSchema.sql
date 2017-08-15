@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS citizen(
 
 	first_name VARCHAR(30),
 	last_name VARCHAR(30),
-	national_id VARCHAR(16),
+	national_id VARCHAR(16) UNIQUE NOT NULL,
 	date_of_birth date,
 	place_of_birth VARCHAR(100),
 	phone VARCHAR(30),

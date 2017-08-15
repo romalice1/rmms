@@ -1,17 +1,11 @@
 var mysqlModel = require('mysql-model');
+var ENV = require('../config/database');
 
-var connAttr = {
-  host     : 'localhost',
-  user     : 'rims',
-  password : 'rims',
-  database : 'rwanda_migration_management_sys'
-}
-
-var AppModel = mysqlModel.createConnection(connAttr, function(err){
+var AppModel = mysqlModel.createConnection(ENV.DB.connAttr, function(err){
 	if(!err){
 		console.log('Connection established');
 	}else{
-		console.log('Doomed');
+		console.log('Could not establish the app connection. Contact your system administrator.');
 	}
 });
 

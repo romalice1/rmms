@@ -1,11 +1,15 @@
 "use strict";
 
-var mysqlModel = require('mysql-model');
+var ENV = {
+	host: 'localhost:3000',
+	DB: {
+		connAttr: {
+		  host     : 'localhost',
+		  user     : 'rims',
+		  password : 'rims',
+		  database : 'rwanda_migration_management_sys'
+		}
+	}
+}
 
-
-var AppModel = mysqlModel.createConnection({
-  host     : 'database-host',
-  user     : 'database-user',
-  password : 'database-password',
-  database : 'database-name',
-});
+module.exports = ENV;
