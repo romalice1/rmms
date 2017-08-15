@@ -27,52 +27,56 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                	<div class='alert alert-success alert-dismissible col-sm-offset-2'>Your information status will be here</div>
-                    <form method="POST" action="/create-new-citizen" class="form-horizontal">
+                    {{#if message}}
+                    	<div class='alert alert-success alert-dismissible col-sm-offset-2'>
+                            {{message}}
+                        </div>
+                    {{/if}}
+                    <form method="POST" action="/api/create-new-citizen" class="form-horizontal">
                         <div class='row'>
                             <div class='col-md-12'>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">First name*</label>
                                     <div class="col-sm-10">
-                                    	<input name="first_name" type="text" class="form-control" placeholder='First name'>
+                                    	<input name="first_name" type="text" class="form-control" placeholder='First name' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Last name* </label>
                                     <div class="col-sm-10">
-                                    	<input name="last_name" type="text" class="form-control" placeholder='Last name'> 
+                                    	<input name="last_name" type="text" class="form-control" placeholder='Last name' required> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">National ID* </label>
                                     <div class="col-sm-10">
-                                    	<input name="nid" type="number" class="form-control" name="password" placeholder='National Identification Number'>
+                                    	<input name="nid" type="number" class="form-control" name="password" placeholder='National Identification Number' required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Date of Birth* </label>
                                     <div class="col-sm-10">
-                                    	<input name="dob" type="date" class="form-control" placeholder='yyy-mm-dd'>
+                                    	<input name="dob" type="date" class="form-control" placeholder='yyy-mm-dd' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Place of birth* </label>
                                     <div class="col-sm-10">
-                                    	<input name="place_of_birth" type="text" class="form-control" name="password" placeholder='Place of birth'>
+                                    	<input name="place_of_birth" type="text" class="form-control" name="password" placeholder='Place of birth' required>
                                     	<span class="help-block m-b-none">Province and District</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Phone number* </label>
                                     <div class="col-sm-10">
-                                    	<input name="phone_number" type="text" placeholder="placeholder" class="form-control">
+                                    	<input name="phone_number" type="text" placeholder="placeholder" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Email</label>
                                     <div class="col-sm-10">
-                                    	<input name="email" type="email" placeholder="placeholder" class="form-control">
+                                    	<input name="email" type="email" placeholder="placeholder" class="form-control" required >
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +95,7 @@
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Province*</label>
                                     <div class="col-sm-10">
-                                    	<select id="selectProvinces" name='province' class='form-control' onChange="pullDistricts()">
+                                    	<select id="selectProvince" name='province' class='form-control' onChange="pullDistricts()" required>
                                             <option>---select---</option>
                                             {{#each provinces as |province|}}
                                     		  <option value={{province.province_id}}>{{province.province_name}}</option>
@@ -102,7 +106,7 @@
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">District*</label>
                                     <div class="col-sm-10">
-                                    	<select name='district' class='form-control'>
+                                    	<select id="selectDistrict" name='district' class='form-control' onChange="pullImirenge()" required >
                                     		<option value=''>-- select --</option>
                                     	</select>
                                     </div>
@@ -110,7 +114,7 @@
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Umurenge*</label>
                                     <div class="col-sm-10">
-                                    	<select name='umurenge' class='form-control'>
+                                    	<select id="selectUmurenge" name='umurenge' class='form-control' required>
                                     		<option value=''>-- select --</option>
                                     	</select>
                                     </div>
@@ -118,19 +122,19 @@
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Akagari*</label>
                                     <div class="col-sm-10">
-                                    	<select name='akagari' class='form-control'>
-                                    		<option value=''>-- select --</option>
+                                    	<select id="selectAkagari" name='akagari' class='form-control' onChange="pullUtugari()" required>
+                                    		<option value='1'>Anonymous</option>
                                     	</select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class="col-sm-2 control-label">Cell / Umudugudu*</label>
                                     <div class="col-sm-10">
-                                    	<input name='umudugudu' type='text' placeholder='Umudugudu' class='form-control'>
+                                    	<input name='umudugudu' type='text' placeholder='Umudugudu' class='form-control' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Photo*</label>
+                                    <label class="col-sm-2 control-label">Photo</label>
                                     <div class="col-sm-10">
                                         <input name='photo' type='file' class='form-control'>
                                     </div>
@@ -144,7 +148,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Father's full name</label>
                                 <div class="col-sm-10">
-                                    <input name="father" type="text" placeholder="Full name" class="form-control">
+                                    <input name="father" type="text" placeholder="Full name" class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group">
@@ -172,9 +176,9 @@
                         </div>
                         <div class='ibox-content'>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Employer's full name</label>
+                                <label class="col-sm-2 control-label">Employer's full name*</label>
                                 <div class="col-sm-10">
-                                    <input name="employer_name" type="text" placeholder="Full name" class="form-control">
+                                    <input name="employer_name" type="text" placeholder="Full name" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -184,15 +188,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Phone number</label>
+                                <label class="col-sm-2 control-label">Phone number*</label>
                                 <div class="col-sm-10">
-                                    <input name="employer_phone_number" type="text" placeholder="07xxxxxxxx" class="form-control">
+                                    <input name="employer_phone_number" type="text" placeholder="07xxxxxxxx" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Current residence</label>
                                 <div class="col-sm-10">
-                                    <input name="employer_curr_residence" type="text" placeholder="Full address" class="form-control">
+                                    <input name="employer_curr_residence" type="text" placeholder="Full address" class="form-control" required>
                                     <span class="help-block m-b-none">Province, District, Umurenge, Akagari, Umudugudu</span>
                                 </div>
                             </div>

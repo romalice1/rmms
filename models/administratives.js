@@ -6,12 +6,12 @@ var DBInterface = require('./dbInterface');
 var ProvinceTable = DBInterface.extend({tableName: "province"});
 var DistrictTable = DBInterface.extend({tableName: "district"});
 var umurengeTable = DBInterface.extend({tableName: "umurenge"});
-// var akagariTable = DBInterface.extend({tableName: "akagari"});
+var akagariTable = DBInterface.extend({tableName: "akagari"});
 
 var districtTable = new DistrictTable();
 var umurengeTable = new umurengeTable();
 var provinceTable = new ProvinceTable();
-// var akagariTable = new akagariTable();
+var akagariTable = new akagariTable();
 
 class administratives{
 

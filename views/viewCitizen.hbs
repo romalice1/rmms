@@ -1,0 +1,67 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2>Citizen Profile</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/citizens">Home</a>
+            </li>
+            <li class="active">
+                <strong>Citizen Profile</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="contact-box">
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        <img alt="image" class="img-circle m-t-xs img-responsive" src="/images/avatar.png">
+                        <div class="m-t-xs font-bold">Graphics designer</div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <h3><strong>{{citizen.first_name}} {{citizen.last_name}}</strong></h3>
+                    <h5>National id: {{citizen.national_id}}</h5>
+                    <p>
+                        <i class="fa fa-map-marker"></i> 
+                        <label>Province: </label>{{citizen.province_name}}, 
+                        <label>District: </label>{{citizen.district_name}}, 
+                        <label>Umurenge: </label>{{citizen.umurenge_name}}, 
+                        <label>Akagari: </label>{{citizen.akagari_name}}, 
+                        <label>Umudugudu: </label>{{citizen.umudugudu}}
+                    </p>
+                    <address>
+                        <strong>Contacts</strong><br>
+                        <i class="fa fa-mobile"></i> {{citizen.phone}}<br>
+                        <i class="fa fa-envelope"></i> {{citizen.email}}<br>
+                    </address>
+
+                    
+                    {{citizen.date_of_birth}}
+                    {{citizen.place_of_birth}}
+                    {{citizen.father_name}}
+                    {{citizen.mother_name}}
+                    {{citizen.parents_current_residence}}
+                    {{citizen.parents_contact_phone}}
+                    {{citizen.employer_name}}
+                    {{citizen.employer_identification_number}}
+                    {{citizen.employer_phone}}
+                    {{citizen.employer_residence}}
+                    {{citizen.register_date}}
+
+                    <div class="contact-box-footer">
+                        <div class="m-t-xs btn-group">
+                            <a class="btn btn-xs btn-white"><i class="fa fa-edit"></i> Edit </a>
+                            <a class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
+                            <a href='/move-citizen/{{citizen.citizen_id}}' class="btn btn-xs btn-white"><i class="fa fa-share-square-o"></i> Move</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

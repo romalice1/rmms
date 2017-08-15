@@ -21,7 +21,7 @@
             <div class="ibox-title">
                 <h5>Citizen list</h5>
                 <div class="ibox-tools">
-                    <a href='/new-citizen' class='btn btn-primary'> <i class="fa fa-plus"></i> New citizen</a>
+                    <a href='/new-citizen-form' class='btn btn-primary'> <i class="fa fa-plus"></i> New citizen</a>
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -43,97 +43,18 @@
 			            <tbody>
 			            	{{#each citizens as |citizen|}}
 					            <tr class="gradeX">
-					                <td>{{citizen.first_name}} {{citizen.last_name}}</td>
+					                <td>
+					                	<a href='/show-citizen/{{citizen.citizen_id}}'>
+					                		{{citizen.first_name}} {{citizen.last_name}}
+					                	</a>
+					                </td>
 					                <td>{{citizen.phone}}</td>
-					                <td>{{citizen.province}}</td>
-					                <td class="center">{{citizen.district}}</td>
-					                <td class="center">{{citizen.umurenge}}</td>
+					                <td>{{citizen.province_name}}</td>
+					                <td class="center">{{citizen.district_name}}</td>
+					                <td class="center">{{citizen.umurenge_name}}</td>
 					                <td><span class='fa fa-edit'></span></td>
 					            </tr>
 				            {{/each}}
-				           
-				            <tr class="gradeC">
-				                <td>Trident</td>
-				                <td>Internet
-				                    Explorer 5.0
-				                </td>
-				                <td>Win 95+</td>
-				                <td class="center">5</td>
-				                <td class="center">C</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Trident</td>
-				                <td>Internet Explorer 7</td>
-				                <td>Win XP SP2+</td>
-				                <td class="center">7</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Trident</td>
-				                <td>AOL browser (AOL desktop)</td>
-				                <td>Win XP</td>
-				                <td class="center">6</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Firefox 1.0</td>
-				                <td>Win 98+ / OSX.2+</td>
-				                <td class="center">1.7</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Firefox 1.5</td>
-				                <td>Win 98+ / OSX.2+</td>
-				                <td class="center">1.8</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Firefox 2.0</td>
-				                <td>Win 98+ / OSX.2+</td>
-				                <td class="center">1.8</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Firefox 3.0</td>
-				                <td>Win 2k+ / OSX.3+</td>
-				                <td class="center">1.9</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Camino 1.0</td>
-				                <td>OSX.2+</td>
-				                <td class="center">1.8</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Camino 1.5</td>
-				                <td>OSX.3+</td>
-				                <td class="center">1.8</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
-				            <tr class="gradeA">
-				                <td>Gecko</td>
-				                <td>Netscape 7.2</td>
-				                <td>Win 95+ / Mac OS 8.6-9.2</td>
-				                <td class="center">1.7</td>
-				                <td class="center">A</td>
-				                <td><span class='fa fa-edit'></span></td>
-				            </tr>
 			            </tbody>
 			            <tfoot>
 			            <tr>

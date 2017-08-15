@@ -5,7 +5,7 @@ class administrativesController {
 
     // Find all provinces
     static getProvinces(request, response, next) {
-        administratives.findProvinces( request, function(results) {
+        Administratives.findProvinces( request, function(results) {
             response.send({ data: results });
         });     
     }
@@ -13,9 +13,7 @@ class administrativesController {
     // Find all districts
     static getDistricts(request, response, next) {
         Administratives.findDistricts( request, function(results) {
-            var resp = {data: results};
-            console.log(resp.data.length)
-            response.json(resp);
+            response.json({data: results});
         });     
     }
 
