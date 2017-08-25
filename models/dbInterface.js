@@ -1,5 +1,5 @@
 var mysqlModel = require('mysql-model');
-var ENV = require('../config/database');
+var ENV = require('../config/environment');
 
 var AppModel = mysqlModel.createConnection(ENV.DB.connAttr, function(err){
 	if(!err){

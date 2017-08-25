@@ -1,0 +1,122 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>New user</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/admin/users">All users</a>
+            </li>
+            <li class="active">
+                <strong>New user</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><i class='fa fa-user'></i> User information <small>All fields with (*) are required.</small></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{#if success}}
+                    	<div class='alert alert-success alert-dismissible col-sm-offset-2'>
+                            {{success}}
+                        </div>
+                    {{/if}}
+                    {{#if error}}
+                        <div class='alert alert-danger alert-dismissible col-sm-offset-2'>
+                            {{error}}
+                        </div>
+                    {{/if}}
+                    <form method="POST" action="/admin/new-user" class="form-horizontal">
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">First name*</label>
+                                    <div class="col-sm-10">
+                                    	<input name="first_name" type="text" class="form-control" placeholder='First name' required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Last name* </label>
+                                    <div class="col-sm-10">
+                                    	<input name="last_name" type="text" class="form-control" placeholder='Last name' required> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">National ID* </label>
+                                    <div class="col-sm-10">
+                                    	<input name="national_id" type="number" class="form-control" name="password" placeholder='National Identification Number' required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Phone number* </label>
+                                    <div class="col-sm-10">
+                                    	<input name="phone" type="text" placeholder="placeholder" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10">
+                                    	<input name="email" type="email" placeholder="placeholder" class="form-control" required >
+                                        <span class="help-block m-b-none">This will be used as your username</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Privilege level</label>
+                                    <div class="col-sm-10">
+                                        <select name='privilege' class='form-control'>
+                                            <option value='Admin'>Admin</option>
+                                            <option value='User'>User</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">Province*</label>
+                                    <div class="col-sm-10">
+                                    	<select id="selectProvince" name='scope_province_id' class='form-control' onChange="pullDistricts()" required>
+                                            <option>---select---</option>
+                                            <option value=*>All</option>
+                                            {{#each provinces as |province|}}
+                                    		  <option value={{province.province_id}}>{{province.province_name}}</option>
+                                            {{/each}}
+                                    	</select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-2 control-label">District*</label>
+                                    <div class="col-sm-10">
+                                    	<select id="selectDistrict" name='scope_district_id' class='form-control' onChange="pullImirenge()" required >
+                                    		<option value=''>-- select --</option>
+                                            <option value=*>All</option>
+                                    	</select>
+                                    </div>
+                                </div>
+                             <div class="hr-line-dashed"></div>
+                            <div class='col-sm-offset-2'>
+                                <button class='btn btn-primary'>Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--- Helper Javascript--->
+<script type="text/javascript" src='/javascripts/custom.js'></script>

@@ -87,8 +87,23 @@ class citizen{
 	/* FInd all citizens */
 	static findAll(request, callback){
 		citizenTable = new CitizenTable();
-		
-		var sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC"; 
+		console.log(request.params);
+		// Filter by view scope
+		var sql;
+		// var sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+		if( request.params.scope_province === '*'){
+			//Show all provinces
+			sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+		}else{
+			/* Show a specific province*/
+			//Filter by district
+			if( request.params.scope_district === '*' ){
+				sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id='"+request.params.scope_province+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+			}else{
+				//Show only specific districts
+				sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id='"+request.params.scope_province+"' AND c.district_id='"+request.params.scope_district+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+			}
+		}
 		
 		citizenTable.query(sql, function(err, rows, fields) {
 		    console.log(rows);
@@ -104,6 +119,19 @@ class citizen{
 		citizenTable = new CitizenTable();
 		
 		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.citizen_id = '"+citizen_id+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
+		
+		citizenTable.query(sql, function(err, rows, fields) {
+		    callback(rows);
+		});
+	}
+
+	/* Find citizens by a keyword */
+	static findWhere(request, callback){
+		//Find strictly by national_id (it's a business rule)
+		var keyword = request.params.keyword;
+		citizenTable = new CitizenTable();
+		
+		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.national_id = '"+keyword+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
 		
 		citizenTable.query(sql, function(err, rows, fields) {
 		    callback(rows);

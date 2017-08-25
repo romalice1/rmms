@@ -1,12 +1,12 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>All citizens</h2>
+        <h2>Users</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="/">Home</a>
             </li>
             <li class="active">
-                <strong>All citizens</strong>
+                <strong>Users</strong>
             </li>
         </ol>
     </div>
@@ -19,9 +19,9 @@
         <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Citizen list</h5>
+                <h5>Users</h5>
                 <div class="ibox-tools">
-                    <a href='/new-citizen-form' class='btn btn-primary'> <i class="fa fa-plus"></i> New citizen</a>
+                    <a href='/admin/new-user' class='btn btn-primary'> <i class="fa fa-plus"></i> New User</a>
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -33,36 +33,27 @@
 			            <thead>
 				            <tr>
 				                <th>Names <i class='fa fa-sort pull-right'></i></th>
-				                <th>Phone</th>
-				                <th>Provice</th>
-				                <th>District</th>
-				                <th>Umurenge</th>
+				                <th>Phone <i class='fa fa-sort pull-right'></i></th>
+				                <th>Email <i class='fa fa-sort pull-right'></i></th>
+				                <th>Privilege <i class='fa fa-sort pull-right'></i></th>
+				                <th>Status</th>
 				            </tr>
 			            </thead>
 			            <tbody>
-			            	{{#each citizens as |citizen|}}
+			            	{{#each users as |user|}}
 					            <tr class="gradeX">
 					                <td>
-					                	<a href='/show-citizen/{{citizen.citizen_id}}'>
-					                		{{citizen.first_name}} {{citizen.last_name}}
+					                	<a href='/show-citizen/{{user.id}}'>
+					                		{{user.first_name}} {{user.last_name}}
 					                	</a>
 					                </td>
-					                <td>{{citizen.phone}}</td>
-					                <td>{{citizen.province_name}}</td>
-					                <td class="center">{{citizen.district_name}}</td>
-					                <td class="center">{{citizen.umurenge_name}}</td>
+					                <td>{{user.phone}}</td>
+					                <td>{{user.email}}</td>
+                                    <td>{{user.privilege}}</td>
+                                    <td>{{user.account_status}}</td>
 					            </tr>
 				            {{/each}}
 			            </tbody>
-			            <tfoot>
-			            <tr>
-			                <th>Names</th>
-			                <th>Phone</th>
-			                <th>Provice</th>
-			                <th>District</th>
-			                <th>Umurenge</th>
-			            </tr>
-			            </tfoot>
 		            </table>
 	            </div>
 	        </div>

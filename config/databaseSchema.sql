@@ -115,3 +115,25 @@ CREATE TABLE migrations(
     FOREIGN KEY (umurenge_id) REFERENCES umurenge(umurenge_id),    
     FOREIGN KEY (akagari_id) REFERENCES akagari(akagari_id)
 );
+
+--
+-- USER ADMINISTRATION --
+--
+
+-- table users
+CREATE TABLE users(
+	user_id VARCHAR(30),
+	first_name VARCHAR(30),
+	last_name VARCHAR(30),
+	national_id VARCHAR(16),
+	phone VARCHAR(30),
+	email VARCHAR(30) UNIQUE NOT NULL,
+	password VARCHAR(65) NOT NULL,
+	privilege VARCHAR(30) NOT NULL,
+	account_status VARCHAR(10) NOT NULL DEFAULT 'Active',
+	scope_district_id VARCHAR(3),
+	scope_province_id VARCHAR(3),
+	created_on datetime DEFAULT CURRENT_TIMESTAMP,
+
+	PRIMARY KEY (user_id)
+);

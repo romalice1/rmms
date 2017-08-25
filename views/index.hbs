@@ -1,2 +1,32 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">RIMS</h1>
+
+            </div>
+            <h3>Welcome to RIMS</h3>
+            <p>Rwanda Internal Migration Management System
+            </p>
+            <p>Login in.</p>
+            {{#if message}}
+                <div class='alert alert-danger alert-dismissible'>{{message}}</div>
+            {{/if}}
+            <form class="m-t" role="form" action="/admin/login" method="POST">
+                <div class="form-group">
+                    <input name="username" type="email" class="form-control" placeholder="Username" required="">
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="Password" required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                <a href="#"><small>Forgot password?</small></a>
+                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
+            </form>
+        </div>
+    </div>
+</div>

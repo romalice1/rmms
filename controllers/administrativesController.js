@@ -30,12 +30,6 @@ class administrativesController {
             response.send({ data: results });
         });     
     }
-
-    static renderNewCitizenForm(request, response, next){
-        Administratives.findProvinces( request, function(results) {
-            response.render('new-citizen', { provinces: results });
-        });     
-    }
 }
 
 module.exports = administrativesController;

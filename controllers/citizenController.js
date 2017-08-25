@@ -5,7 +5,8 @@ class citizenController {
 
     static createNewCitizen(request, response, next) {
         Citizen.createNewCitizen( request, function(results) {
-            response.render('new-citizen', { message: results });
+            // response.render('new-citizen', { message: results });
+            response.redirect('/citizens');
         });		
     }
 
@@ -17,7 +18,7 @@ class citizenController {
 
     static findAllCitizens(request, response, next) {
         Citizen.findAll( request, function(results) {
-            response.render('citizens', { citizens: results });
+            response.send({results});
         });		
     }
 
@@ -25,6 +26,12 @@ class citizenController {
         Citizen.findById( request, function(results) {
             response.send({ data: results });
         });     
+    }
+
+    static findWhere( request, response, next){
+        Citizen.findWhere( request, function(results) {
+            response.send({ data: results });
+        }); 
     }
 }
 

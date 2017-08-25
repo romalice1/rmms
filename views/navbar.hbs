@@ -16,9 +16,15 @@
                     <li><a href="/new-citizen-form"><i class="fa fa-plus"></i> New citizen</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="/admin"><i class="fa fa-cogs"></i> <span class="nav-label">Admin</span></a>
-            </li>
+            {{#if session.data.privilege_admin}}
+                <li>
+                    <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Admin</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/admin/users"><i class="fa fa-users"></i> Users</a></li>
+                        <li><a href="/admin/new-user"><i class="fa fa-plus"></i> New user</a></li>
+                    </ul>
+                </li>
+            {{/if}}
         </ul>
 
     </div>
