@@ -12,14 +12,21 @@ function pullDistricts(){
 	callAjax("GET", "http://localhost:3000/api/districts/"+province_id, function(results){
 		
 		var results = JSON.parse(results);
+		// Clean first
+		$( "select[name='district']" ).html("<option value=''>--Select--</option>");
 		
 		// Set districts options
-		var optionsAsString = "";
-		for(var i = 0; i < results.data.length; i++) {
-		    optionsAsString += "<option value='" + results.data[i].district_id + "'>" + results.data[i].district_name + "</option>";
-		}
+		if(results.data.length === 0){
+			// NO data. Clean the list
+			$( "select[name='district']" ).html("<option value=''>--Select--</option>");
+		}else{
+			var optionsAsString = "";
+			for(var i = 0; i < results.data.length; i++) {
+			    optionsAsString += "<option value='" + results.data[i].district_id + "'>" + results.data[i].district_name + "</option>";
+			}
 
-		$( "select[name='district']" ).append( optionsAsString );
+			$( "select[name='district']" ).append( optionsAsString );
+		}
 	});
 }
 
@@ -33,14 +40,22 @@ function pullImirenge(){
 		
 		var results = JSON.parse(results);
 
+		// Clean first
+		$( "select[name='umurenge']" ).html("<option value=''>--Select--</option>");
+
 		// Set districts options
-		var optionsAsString = "";
+		if(results.data.length === 0){
+			// NO data. Clean the list
+			$( "select[name='umurenge']" ).html("<option value=''>--Select--</option>");
+		}else{
+			var optionsAsString = "";
 
-		for(var i = 0; i < results.data.length; i++) {
-		    optionsAsString += "<option value='" + results.data[i].umurenge_id + "'>" + results.data[i].umurenge_name + "</option>";
+			for(var i = 0; i < results.data.length; i++) {
+			    optionsAsString += "<option value='" + results.data[i].umurenge_id + "'>" + results.data[i].umurenge_name + "</option>";
+			}
+
+			$( "select[name='umurenge']" ).append( optionsAsString );
 		}
-
-		$( "select[name='umurenge']" ).append( optionsAsString );
 	});
 }
 
@@ -54,13 +69,21 @@ function pullUtugari(){
 		
 		var results = JSON.parse(results);
 
-		// Set districts options
-		var optionsAsString = "";
-		for(var i = 0; i < results.data.length; i++) {
-		    optionsAsString += "<option value='" + results.data[i].akagari_id + "'>" + results.data[i].akagari_name + "</option>";
+		// Clean first
+		$( "select[name='akagari']" ).html("<option value=''>--Select--</option>");
+
+		if(results.data.length === 0){
+			// NO data. Clean the list
+			$( "select[name='akagari']" ).html("<option value=''>--Select--</option>");
+		}else{
+			// Set districts options
+			var optionsAsString = "";
+			for(var i = 0; i < results.data.length; i++) {
+			    optionsAsString += "<option value='" + results.data[i].akagari_id + "'>" + results.data[i].akagari_name + "</option>";
+			}
+
+			$( "select[name='akagari']" ).append( optionsAsString );
 		}
-		console.log(optionsAsString);
-		$( "select[name='akagari']" ).append( optionsAsString );
 	});
 }
 

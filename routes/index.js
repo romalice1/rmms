@@ -34,7 +34,7 @@ router.get('/api/citizens/:citizen_id', citizenController.findById);
 router.get('/api/citizens/search/:keyword', citizenController.findWhere);
 
 /* Move a specific citizen */
-router.post('/api/move-citizen/:citizen_id', citizenController.moveCitizen)
+router.post('/api/move-citizen', citizenController.moveCitizen)
 
 /* Get a list of all registered citizens */
 //SCOPE: put '*' if you want all. Else, put a province or district id
@@ -54,7 +54,6 @@ router.get('/', function(req, res, next) {
 		res.render('index');
 	}
 });
-
 /*Show individual citizen*/
 router.get('/show-citizen/:citizen_id', function(req, res, next) {
 	/* Authenticate this route */
@@ -65,7 +64,6 @@ router.get('/show-citizen/:citizen_id', function(req, res, next) {
 		    next();
 		});
 	});
-
 });
 
 /* GET view-move-citizen. */
@@ -86,6 +84,16 @@ router.get('/move-citizen/:citizen_id', function(req, res, next) {
 		});
 	});
 });
+
+// /* Update citizen location */
+// router.post('/move-citizen', function(req, res, next){
+// 	client.post(ENV.host+"/api/move-citizen", req, function (provincedata, response) {
+// 		    // parsed response body as js object 
+// 	    res.render('move-citizen');
+// 	    next();
+	
+// 	});
+// });
 
 /* Get - form to register new citizen. */
 // router.get('/new-citizen-form', administrativesController.renderNewCitizenForm);
@@ -124,8 +132,8 @@ router.get('/dashboard', function(req, res, next) {
 	});
 });
 
-/* GET search citizen */
-router.get('/citizens/search', function(req, res, next){
+/* POST search citizen by keyword */
+router.post('/citizens', function(req, res, next){
 	/* Authenticate this route */
 	session.authenticateRoute(req, res, function(state){
 		client.get(ENV.host+"/api/citizens/search/"+req.body.keyword, function (data, response){

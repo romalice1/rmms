@@ -61,25 +61,47 @@ class citizen{
 
 	/* Move citizen */
 	static moveCitizen(request, callback){
-		migrationsTable = new MigrationsTable();
+		citizenTable = new CitizenTable();
 
+		// Update citizen
 		var sql = ""
-			+"UPDATE migrations SET "
-			+"citizen_id='"+ request.params.citizen_id +"', "
-			+"country_id='1', "
+			+"UPDATE citizen SET "
 			+"province_id='"+ request.body.province +"', "
 			+"district_id='"+ request.body.district +"', "
 			+"umurenge_id='"+ request.body.umurenge +"', "
 			+"akagari_id='"+ request.body.akagari +"', "
-			+"umudugudu='"+ request.body.umudugudu +"'";
+			+"umudugudu='"+ request.body.umudugudu +"'"
+			+"WHERE citizen_id='"+request.body.citizen_id+"'";
 
-		migrationsTable.query(sql, function(err, rows, fields) {
+		citizenTable.query(sql, function(err, rows, fields) {
 		    if(err){
-		    	console.log("There was an internal error: "+err);
-				callback( {message:"There was an internal error"} );		    	
+				callback( {code:'101', message:"There was an internal error at level #1", citizen_id: request.body.citizen_id} );		    	
 		    }else{
-		    	console.log("Successully updated: "+rows);
-		    	callback( {message:"The citizen was succesfully migrated.", data:rows} );
+
+				migrationsTable = new MigrationsTable();
+
+		    	// Insert new record into migrations
+		    	var m_id = md5( new Date() ).substr(0, 30); // Generate random id of 30 characters
+		    	var sql1 = "INSERT INTO migrations ( migration_id, citizen_id, country_id, province_id, district_id, umurenge_id, akagari_id, umudugudu )"
+		    		+" VALUES("
+		    			+"'"+m_id+"', "
+		    			+"'"+request.body.citizen_id+"', "
+		    			+"'1'"
+		    			+"'"+request.body.province+"', "
+		    			+"'"+request.body.district+"', "
+		    			+"'"+request.body.umurenge+"', "
+		    			+"'"+request.body.akagari+"', "
+		    			+"'"+request.body.umudugudu+"'"
+		    		+")";
+
+				migrationsTable.query(sql1, function(err, rows, fields){
+					if(err){
+						console.log(err);
+						callback( {code:'101', message:"There was an internal error at level #2", citizen_id: request.body.citizen_id} );
+					}else{
+						callback( {code:'100', message:"The citizen was successfully moved", citizen_id: request.body.citizen_id} );
+					}
+				});
 		    }
 		});
 	}
@@ -106,7 +128,6 @@ class citizen{
 		}
 		
 		citizenTable.query(sql, function(err, rows, fields) {
-		    console.log(rows);
 
 		    callback(rows);
 		});
@@ -118,7 +139,7 @@ class citizen{
 		var citizen_id = request.params.citizen_id;
 		citizenTable = new CitizenTable();
 		
-		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.citizen_id = '"+citizen_id+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
+		var sql = "SELECT c.*, DATE_FORMAT(c.register_date, '%M %d, %Y') as created_date, DATE_FORMAT(c.date_of_birth, '%M %d, %Y') as birth_date, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.citizen_id = '"+citizen_id+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
 		
 		citizenTable.query(sql, function(err, rows, fields) {
 		    callback(rows);
@@ -131,9 +152,10 @@ class citizen{
 		var keyword = request.params.keyword;
 		citizenTable = new CitizenTable();
 		
-		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.national_id = '"+keyword+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
+		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.national_id LIKE '%"+keyword+"%' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
 		
 		citizenTable.query(sql, function(err, rows, fields) {
+
 		    callback(rows);
 		});
 	}

@@ -27,10 +27,11 @@
                 <div class='alert alert-success'>{{message}}</div>
             {{/if}}
 
-            <form method="POST" action="/api/move-citizen/{{citizen.citizen_id}}" class="form-horizontal">
+            <form method="POST" action="/api/move-citizen" class="form-horizontal">
                 <div class='row'>
                     <div class='col-md-12'>
                         <div class="form-group">
+                            <input type='hidden' name="citizen_id" value={{citizen.citizen_id}}>
                             <label class="col-sm-2 control-label">Province*</label>
                             <div class="col-sm-10">
                                 <select id="selectProvince" name='province' class='form-control' onChange="pullDistricts();" required>

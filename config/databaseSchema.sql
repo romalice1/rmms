@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS citizen(
 
 -- table migration
 CREATE TABLE migrations(
-	id VARCHAR(30),
+	migration_id VARCHAR(30),
 	
 	citizen_id VARCHAR(30),
 
@@ -107,7 +107,7 @@ CREATE TABLE migrations(
 
 	migration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-	PRIMARY KEY (id),
+	PRIMARY KEY (migration_id),
 	FOREIGN KEY (citizen_id) REFERENCES citizen(citizen_id),
     FOREIGN KEY (country_id) REFERENCES country(country_id),
     FOREIGN KEY (province_id) REFERENCES province(province_id),

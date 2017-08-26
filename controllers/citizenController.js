@@ -12,7 +12,9 @@ class citizenController {
 
     static moveCitizen(request, response, next) {
         Citizen.moveCitizen( request, function(results) {
-            response.render('move-citizen', { results });
+            //Redirect to view citizen
+            response.redirect('/show-citizen/'+results.citizen_id);
+            // response.send({results});
         });     
     }
 
@@ -30,7 +32,7 @@ class citizenController {
 
     static findWhere( request, response, next){
         Citizen.findWhere( request, function(results) {
-            response.send({ data: results });
+            response.send({ results });
         }); 
     }
 }

@@ -1,3 +1,4 @@
+{{#if session.data}}
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,15 +18,19 @@
     {{!-- /Inspinia template --}}
     
   </head>
-  <body>
-  	{{> navbar}}
-  	<div id="page-wrapper" class="gray-bg">
-  		{{> navbar_static_top}}
-    	{{{body}}}
+  {{> navbar}}
+  <div id="page-wrapper" class="gray-bg">
+        {{> navbar_static_top}}
+      
+  {{/if}}
+
+    {{{body}}}
+
+  {{#if session.data}}
       <div class="footer">
-          <div class="pull-right">
-              {{!-- <strong>Developed by</strong> <a href='http://www.romaliceconsult.com' target='new'>Romalice</a> Consult. --}}
-          </div>
+          {{!-- <div class="pull-right">
+              <strong>Developed by</strong> <a href='http://www.romaliceconsult.com' target='new'>Romalice</a> Consult.
+          </div> --}}
           <div>
               <strong>Copyright</strong> KBAN Ltd. &copy; 2017
           </div>
@@ -72,6 +77,7 @@
 
     <!--- Helper Javascript--->
     <script src='/javascripts/custom.js'></script>
-
   </body>
 </html>
+
+{{/if}}
