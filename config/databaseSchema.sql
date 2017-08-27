@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS akagari(
 
 -- table citizen
 CREATE TABLE IF NOT EXISTS citizen(
-	citizen_id VARCHAR(30),
+	citizen_id VARCHAR(65),
 
 	first_name VARCHAR(30),
 	last_name VARCHAR(30),
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS citizen(
 CREATE TABLE migrations(
 	migration_id VARCHAR(30),
 	
-	citizen_id VARCHAR(30),
+	citizen_id VARCHAR(65),
 
 	country_id int,
 	province_id int,
@@ -105,6 +105,8 @@ CREATE TABLE migrations(
 
 	umudugudu VARCHAR(100),
 
+	user_id VARCHAR(30),
+
 	migration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY (migration_id),
@@ -113,7 +115,8 @@ CREATE TABLE migrations(
     FOREIGN KEY (province_id) REFERENCES province(province_id),
     FOREIGN KEY (district_id) REFERENCES district(district_id),
     FOREIGN KEY (umurenge_id) REFERENCES umurenge(umurenge_id),    
-    FOREIGN KEY (akagari_id) REFERENCES akagari(akagari_id)
+    FOREIGN KEY (akagari_id) REFERENCES akagari(akagari_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 --

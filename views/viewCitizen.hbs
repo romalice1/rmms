@@ -23,7 +23,11 @@
                         </div>
                         <div>
                             <div class="ibox-content no-padding border-left-right">
-                                <img alt="image" class="img-responsive" src="/template/img/profile_big.jpg">
+                                {{#if citizen.photo_file_path}}
+                                    <img alt="image" class="img-responsive" src="/images/citizen_photos/{{citizen.photo_file_path}}">
+                                {{else}}
+                                    <img alt="image" class="img-responsive" src="/template/img/profile_big.jpg">
+                                {{/if}}
                             </div>
                             <div class="ibox-content profile-content">
                                 <h2><strong>{{citizen.first_name}} {{citizen.last_name}}</strong></h2>
@@ -40,24 +44,24 @@
                                 <div class='hr-line-dashed'></div>
                                 <p>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Province: </label></div>
-                                        <div class='col-sm-8'>{{citizen.province_name}}</div>
+                                        <div class='col-xs-4'><label>Province: </label></div>
+                                        <div class='col-xs-8'>{{citizen.province_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>District: </label></div>
-                                        <div class='col-sm-8'>{{citizen.district_name}}</div>
+                                        <div class='col-xs-4'><label>District: </label></div>
+                                        <div class='col-xs-8'>{{citizen.district_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Sector: </label></div>
-                                        <div class='col-sm-8'>{{citizen.umurenge_name}}</div>
+                                        <div class='col-xs-4'><label>Sector: </label></div>
+                                        <div class='col-xs-8'>{{citizen.umurenge_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Cell: </label></div>
-                                        <div class='col-sm-8'>{{citizen.akagari_name}}</div>
+                                        <div class='col-xs-4'><label>Cell: </label></div>
+                                        <div class='col-xs-8'>{{citizen.akagari_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Village: </label></div>
-                                        <div class='col-sm-8'>{{citizen.umudugudu}}</div>
+                                        <div class='col-xs-4'><label>Village: </label></div>
+                                        <div class='col-xs-8'>{{citizen.umudugudu}}</div>
                                     </div>
                                 </p>
                                 <div class='hr-line-dashed'></div>
@@ -66,32 +70,32 @@
                                         More
                                     </h3>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>National ID </label></div>
-                                        <div class='col-sm-8'>{{citizen.national_id}}</div>
+                                        <div class='col-xs-4'><label>National ID </label></div>
+                                        <div class='col-xs-8'>{{citizen.national_id}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Birthday: </label></div>
-                                        <div class='col-sm-8'>{{citizen.birth_date}}</div>
+                                        <div class='col-xs-4'><label>Birthday: </label></div>
+                                        <div class='col-xs-8'>{{citizen.birth_date}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Place of birth: </label></div>
-                                        <div class='col-sm-8'>{{citizen.place_of_birth}}</div>
+                                        <div class='col-xs-4'><label>Place of birth: </label></div>
+                                        <div class='col-xs-8'>{{citizen.place_of_birth}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Father: </label></div>
-                                        <div class='col-sm-8'>{{citizen.father_name}}</div>
+                                        <div class='col-xs-4'><label>Father: </label></div>
+                                        <div class='col-xs-8'>{{citizen.father_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Mother: </label></div>
-                                        <div class='col-sm-8'>{{citizen.mother_name}}</div>
+                                        <div class='col-xs-4'><label>Mother: </label></div>
+                                        <div class='col-xs-8'>{{citizen.mother_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Parent's residence: </label></div>
-                                        <div class='col-sm-8'>{{citizen.parents_current_residence}}</div>
+                                        <div class='col-xs-4'><label>Parent's residence: </label></div>
+                                        <div class='col-xs-8'>{{citizen.parents_current_residence}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Parent's contacts: </label></div>
-                                        <div class='col-sm-8'>{{citizen.parents_contact_phone}}</div>
+                                        <div class='col-xs-4'><label>Parent's contacts: </label></div>
+                                        <div class='col-xs-8'>{{citizen.parents_contact_phone}}</div>
                                     </div>
                                 </p>
                                 <div class='hr-line-dashed'></div>
@@ -100,20 +104,20 @@
                                         Employment
                                     </h3>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Employer: </label></div>
-                                        <div class='col-sm-8'>{{citizen.employer_name}}</div>
+                                        <div class='col-xs-4'><label>Employer: </label></div>
+                                        <div class='col-xs-8'>{{citizen.employer_name}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>National ID </label></div>
-                                        <div class='col-sm-8'>{{citizen.employer_identification_number}}</div>
+                                        <div class='col-xs-4'><label>National ID </label></div>
+                                        <div class='col-xs-8'>{{citizen.employer_identification_number}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Contacts: </label></div>
-                                        <div class='col-sm-8'>{{citizen.employer_phone}}</div>
+                                        <div class='col-xs-4'><label>Contacts: </label></div>
+                                        <div class='col-xs-8'>{{citizen.employer_phone}}</div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-sm-4'><label>Location: </label></div>
-                                        <div class='col-sm-8'>{{citizen.employer_residence}}</div>
+                                        <div class='col-xs-4'><label>Location: </label></div>
+                                        <div class='col-xs-8'>{{citizen.employer_residence}}</div>
                                     </div>
                                 </p>
                                 
@@ -146,19 +150,7 @@
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#">Config option 1</a>
-                                    </li>
-                                    <li><a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
+                                </a>                                
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -166,28 +158,24 @@
                             <div>
                                 <div class="feed-activity-list">
 
-                                    <div class="feed-element">
-                                        <div class="media-body ">
-                                            <small class="pull-right text-navy">1m ago</small>
-                                            <strong>{{citizen.first_name}} {{citizen.last_name}}</strong> moved to <strong>Kigali, Kimironko</strong>. <br>
-                                            <small class="text-muted">Today 4:21 pm - 12.06.2017 by Remmy Kagabo</small>
-                                            {{!-- <div class="actions">
-                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                <a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> Love</a>
-                                            </div> --}}
+                                    {{#if activities}}
+                                        {{#each activities as |history|}}
+                                            <div class="feed-element">
+                                                <div class="media-body ">
+                                                    <small class="pull-right text-navy">Some time ago</small>
+                                                    <strong>{{history.citizen_name}}</strong> moved to <strong>{{history.location}}</strong> <br>
+                                                    <small class="text-muted">{{history.migration_date}} by {{history.agent_name}}</small>
+                                                </div>
+                                            </div>
+                                        {{/each}}
+                                    {{else}}
+                                        <div class="feed-element">
+                                            <div class="media-body ">
+                                                No recorded history
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="feed-element">
-                                        <div class="media-body ">
-                                            <small class="pull-right text-navy">3 months ago</small>
-                                            <strong>{{citizen.first_name}} {{citizen.last_name}}</strong> moved to <strong>Kigali, Remera</strong>. <br>
-                                            <small class="text-muted">Friday 4:22 pm - 12.03.2017 by Clemence Uwera</small>
-                                            {{!-- <div class="actions">
-                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                <a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> Love</a>
-                                            </div> --}}
-                                        </div>
-                                    </div>
+                                    {{/if}}
+                                    
                                 </div>
 
                                 <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> Show More</button>

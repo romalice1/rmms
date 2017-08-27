@@ -80,6 +80,7 @@ class user{
                         }
                     }else{
                         data = {
+                            user:   rows[0].user_id,
                             name:   rows[0].first_name+" "+rows[0].last_name,
                             email:  rows[0].email,
                             scope_district: rows[0].scope_district_id,

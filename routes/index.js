@@ -40,6 +40,9 @@ router.post('/api/move-citizen', citizenController.moveCitizen)
 //SCOPE: put '*' if you want all. Else, put a province or district id
 router.get('/api/citizens/:scope_province/:scope_district', citizenController.findAllCitizens);
 
+/* Get citizen's recent activities */
+router.get('/api/citizen/history/:citizen_id', citizenController.getMigrationHistory);
+
 /*************************************/
 
 /**************************
@@ -59,9 +62,13 @@ router.get('/show-citizen/:citizen_id', function(req, res, next) {
 	/* Authenticate this route */
 	session.authenticateRoute(req, res, function(state){
 		//Get citizen information
-		client.get(ENV.host+"/api/citizens/"+req.params.citizen_id, function (data, response) {
-		    res.render('viewCitizen', { citizen: data.data[0] });
-		    next();
+		client.get(ENV.host+"/api/citizens/"+req.params.citizen_id, function (citizen_data, response) {
+			//Get citizen activity history
+			client.get(ENV.host+"/api/citizen/history/"+req.params.citizen_id, function (history_data, response) {
+				console.log("History: "+JSON.stringify(history_data) );
+				res.render('viewCitizen', { citizen: citizen_data.data[0], activities: history_data });
+		    	next();
+			});
 		});
 	});
 });
@@ -84,16 +91,6 @@ router.get('/move-citizen/:citizen_id', function(req, res, next) {
 		});
 	});
 });
-
-// /* Update citizen location */
-// router.post('/move-citizen', function(req, res, next){
-// 	client.post(ENV.host+"/api/move-citizen", req, function (provincedata, response) {
-// 		    // parsed response body as js object 
-// 	    res.render('move-citizen');
-// 	    next();
-	
-// 	});
-// });
 
 /* Get - form to register new citizen. */
 // router.get('/new-citizen-form', administrativesController.renderNewCitizenForm);

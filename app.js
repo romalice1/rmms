@@ -14,6 +14,11 @@ var hbs = require('hbs');
 
 var app = express();
 
+const fileUpload = require('express-fileupload');
+
+// default options 
+app.use(fileUpload());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

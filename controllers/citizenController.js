@@ -5,7 +5,6 @@ class citizenController {
 
     static createNewCitizen(request, response, next) {
         Citizen.createNewCitizen( request, function(results) {
-            // response.render('new-citizen', { message: results });
             response.redirect('/citizens');
         });		
     }
@@ -34,6 +33,12 @@ class citizenController {
         Citizen.findWhere( request, function(results) {
             response.send({ results });
         }); 
+    }
+
+    static getMigrationHistory( request, response, next){
+        Citizen.getMigrationHistory(request, function(results){
+            response.send(results);
+        });
     }
 }
 

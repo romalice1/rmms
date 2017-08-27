@@ -24,7 +24,26 @@ class citizen{
 
 	/* Create a new citizen record*/
 	static createNewCitizen(request, callback){
-		var id = md5( new Date() ).substr(0, 30); // Generate random id of 30 characters
+		var id = md5( new Date().getTime() ); // Generate random id of 64 characters
+
+		// Check if the photo was provided
+		if(!request.files.profile_photo){
+			console.log('Photo is undefined');
+		}else{
+			//Move the photo to the new location
+			var sampleFile = request.files.profile_photo;
+			var filename = md5( new Date().getTime() ).slice(-10)+sampleFile.name;
+			var path = "./public/images/citizen_photos/"+filename;
+ 
+			// Use the mv() method to place the file somewhere on your server 
+			sampleFile.mv(path, function(err) {
+			    if (err){
+			    	console.log("Can not move new file: "+err);
+			    }else{
+			    	console.log("Photo file was moved successfully " + filename);
+			    }
+			});
+		}
 		
 		citizenTable = new CitizenTable({
 			citizen_id: 						id,
@@ -41,7 +60,7 @@ class citizen{
 			umurenge_id: 						request.body.umurenge,
 			akagari_id: 						request.body.akagari,
 			umudugudu: 							request.body.umudugudu,
-			photo_file_path: 					request.body.photo,
+			photo_file_path: 					filename,
 			father_name: 						request.body.father,
 			mother_name: 						request.body.mother,
 			parents_current_residence: 			request.body.parents_curr_residence,
@@ -75,33 +94,28 @@ class citizen{
 
 		citizenTable.query(sql, function(err, rows, fields) {
 		    if(err){
+		    	console.log("There was an internal error at level #1");
 				callback( {code:'101', message:"There was an internal error at level #1", citizen_id: request.body.citizen_id} );		    	
 		    }else{
-
-				migrationsTable = new MigrationsTable();
-
+		    	console.log("Ready to change migrationsw table");
 		    	// Insert new record into migrations
-		    	var m_id = md5( new Date() ).substr(0, 30); // Generate random id of 30 characters
-		    	var sql1 = "INSERT INTO migrations ( migration_id, citizen_id, country_id, province_id, district_id, umurenge_id, akagari_id, umudugudu )"
-		    		+" VALUES("
-		    			+"'"+m_id+"', "
-		    			+"'"+request.body.citizen_id+"', "
-		    			+"'1'"
-		    			+"'"+request.body.province+"', "
-		    			+"'"+request.body.district+"', "
-		    			+"'"+request.body.umurenge+"', "
-		    			+"'"+request.body.akagari+"', "
-		    			+"'"+request.body.umudugudu+"'"
-		    		+")";
+		    	var m_id = md5( new Date() ).slice(-30); // Generate random id of 30 characters
+		    	migrationsTable = new MigrationsTable({
+		    		migration_id: 	m_id, 
+		    		citizen_id: 	request.body.citizen_id, 
+		    		country_id: 	"1", 
+		    		province_id: 	request.body.province, 
+		    		district_id: 	request.body.district, 
+		    		umurenge_id: 	request.body.umurenge, 
+		    		akagari_id: 	request.body.akagari, 
+		    		umudugudu: 		request.body.umudugudu,
+		    		user_id: 		request.session.data.user
+		    	});
 
-				migrationsTable.query(sql1, function(err, rows, fields){
-					if(err){
-						console.log(err);
-						callback( {code:'101', message:"There was an internal error at level #2", citizen_id: request.body.citizen_id} );
-					}else{
-						callback( {code:'100', message:"The citizen was successfully moved", citizen_id: request.body.citizen_id} );
-					}
-				});
+		    	migrationsTable.save(function(rows){
+		    		console.log('Migrations here: '+rows);
+		    		callback( {code:'100', message:'Citizen successfully moved', citizen_id: request.body.citizen_id});
+		    	});
 		    }
 		});
 	}
@@ -155,6 +169,20 @@ class citizen{
 		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.national_id LIKE '%"+keyword+"%' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
 		
 		citizenTable.query(sql, function(err, rows, fields) {
+
+		    callback(rows);
+		});
+	}
+
+	/* Get citizen's migration history */
+	static getMigrationHistory(request, callback){
+		var id = request.params.citizen_id;
+		console.log('MyID: '+id);
+		migrationsTable = new MigrationsTable();
+
+		var sql =  "SELECT m.*, concat(c.first_name, ' ', c.last_name) as citizen_name, concat(u.first_name,' ', u.last_name) as agent_name, concat(p.province_name, ', ', d.district_name) as location, DATE_FORMAT(m.migration_date, '%M %d, %Y %r') as migration_date from migrations m, users u, citizen c, province p, district d where m.citizen_id = '"+id+"' AND m.citizen_id=c.citizen_id AND m.user_id=u.user_id AND m.province_id=p.province_id AND m.district_id=d.district_id";
+
+		migrationsTable.query(sql, function(err, rows, fields) {
 
 		    callback(rows);
 		});
