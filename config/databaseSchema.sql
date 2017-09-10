@@ -50,6 +50,15 @@ CREATE TABLE IF NOT EXISTS akagari(
     FOREIGN KEY (umurenge_id) REFERENCES umurenge(umurenge_id)
 );
 
+--- table umudugudu
+CREATE TABLE IF NOT EXISTS umudugudu(
+	umudugudu_id int AUTO_INCREMENT,
+	umudugudu_name VARCHAR(30),
+	akagari_id int,
+	PRIMARY KEY (umudugudu_id),
+    FOREIGN KEY (akagari_id) REFERENCES akagari(akagari_id)
+);
+
 -- table citizen
 CREATE TABLE IF NOT EXISTS citizen(
 	citizen_id VARCHAR(65),
@@ -134,9 +143,23 @@ CREATE TABLE users(
 	password VARCHAR(65) NOT NULL,
 	privilege VARCHAR(30) NOT NULL,
 	account_status VARCHAR(10) NOT NULL DEFAULT 'Active',
-	scope_district_id VARCHAR(3),
 	scope_province_id VARCHAR(3),
+	scope_district_id VARCHAR(3),
+	scope_umurenge_id VARCHAR(3),
+	scope_akagari_id VARCHAR(3),
 	created_on datetime DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY (user_id)
 );
+
+
+
+
+----
+-- Helper commands
+----
+
+--- Import data from excel file
+/*
+mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose --local -u [user] -p [database] /path/to/address.csv
+*/

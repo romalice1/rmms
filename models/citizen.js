@@ -59,7 +59,7 @@ class citizen{
 			district_id: 						request.body.district,
 			umurenge_id: 						request.body.umurenge,
 			akagari_id: 						request.body.akagari,
-			umudugudu: 							request.body.umudugudu,
+			umudugudu_id: 						request.body.umudugudu,
 			photo_file_path: 					filename,
 			father_name: 						request.body.father,
 			mother_name: 						request.body.mother,
@@ -89,7 +89,7 @@ class citizen{
 			+"district_id='"+ request.body.district +"', "
 			+"umurenge_id='"+ request.body.umurenge +"', "
 			+"akagari_id='"+ request.body.akagari +"', "
-			+"umudugudu='"+ request.body.umudugudu +"'"
+			+"umudugudu_id='"+ request.body.umudugudu +"'"
 			+"WHERE citizen_id='"+request.body.citizen_id+"'";
 
 		citizenTable.query(sql, function(err, rows, fields) {
@@ -108,7 +108,7 @@ class citizen{
 		    		district_id: 	request.body.district, 
 		    		umurenge_id: 	request.body.umurenge, 
 		    		akagari_id: 	request.body.akagari, 
-		    		umudugudu: 		request.body.umudugudu,
+		    		umudugudu_id: 	request.body.umudugudu,
 		    		user_id: 		request.session.data.user
 		    	});
 
@@ -126,18 +126,24 @@ class citizen{
 		console.log(request.params);
 		// Filter by view scope
 		var sql;
-		// var sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
 		if( request.params.scope_province === '*'){
 			//Show all provinces
-			sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+			sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name, akagari_name, umudugudu_name FROM citizen c, province p, district d, umurenge u, akagari a, umudugudu du WHERE c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id=a.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC";
 		}else{
 			/* Show a specific province*/
 			//Filter by district
 			if( request.params.scope_district === '*' ){
-				sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id='"+request.params.scope_province+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+				sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name, akagari_name, umudugudu_name FROM citizen c, province p, district d, umurenge u, akagari a, umudugudu du WHERE c.province_id='"+request.params.scope_province+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id=a.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC";
 			}else{
-				//Show only specific districts
-				sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name FROM citizen c, province p, district d, umurenge u WHERE c.province_id='"+request.params.scope_province+"' AND c.district_id='"+request.params.scope_district+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id ORDER BY first_name ASC";
+				if( request.params.scope_umurenge === '*' ){
+					sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name, akagari_name, umudugudu_name FROM citizen c, province p, district d, umurenge u, akagari a, umudugudu du WHERE c.district_id='"+request.params.scope_district+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id=a.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC";
+				}else{
+					if( request.params.scope_akagari === '*' ){
+						sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name, akagari_name, umudugudu_name FROM citizen c, province p, district d, umurenge u, akagari a, umudugudu du WHERE c.umurenge_id='"+request.params.scope_umurenge+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id=a.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC";
+					}else{
+						sql = "SELECT citizen_id, first_name, last_name, phone, province_name, district_name, umurenge_name, akagari_name, umudugudu_name FROM citizen c, province p, district d, umurenge u, akagari a, umudugudu du WHERE c.umurenge_id='"+request.params.scope_umurenge+"' AND c.akagari_id='"+request.params.scope_akagari+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id=a.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC";
+					}
+				}
 			}
 		}
 		
@@ -153,7 +159,7 @@ class citizen{
 		var citizen_id = request.params.citizen_id;
 		citizenTable = new CitizenTable();
 		
-		var sql = "SELECT c.*, DATE_FORMAT(c.register_date, '%M %d, %Y') as created_date, DATE_FORMAT(c.date_of_birth, '%M %d, %Y') as birth_date, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.citizen_id = '"+citizen_id+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
+		var sql = "SELECT c.*, DATE_FORMAT(c.register_date, '%M %d, %Y') as created_date, DATE_FORMAT(c.date_of_birth, '%M %d, %Y') as birth_date, province_name, district_name, umurenge_name, akagari_name, umudugudu_name FROM citizen c, province p, district d, umurenge u, akagari aka, umudugudu du WHERE c.citizen_id = '"+citizen_id+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC"; 
 		
 		citizenTable.query(sql, function(err, rows, fields) {
 		    callback(rows);
@@ -166,7 +172,7 @@ class citizen{
 		var keyword = request.params.keyword;
 		citizenTable = new CitizenTable();
 		
-		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka WHERE c.national_id LIKE '%"+keyword+"%' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id ORDER BY first_name ASC"; 
+		var sql = "SELECT c.*, province_name, district_name, umurenge_name, akagari_name FROM citizen c, province p, district d, umurenge u, akagari aka, umudugudu du WHERE c.national_id = '"+keyword+"' AND c.province_id = p.province_id AND c.district_id = d.district_id AND c.umurenge_id = u.umurenge_id AND c.akagari_id = aka.akagari_id AND c.umudugudu_id=du.umudugudu_id ORDER BY first_name ASC"; 
 		
 		citizenTable.query(sql, function(err, rows, fields) {
 
@@ -180,7 +186,7 @@ class citizen{
 		console.log('MyID: '+id);
 		migrationsTable = new MigrationsTable();
 
-		var sql =  "SELECT m.*, concat(c.first_name, ' ', c.last_name) as citizen_name, concat(u.first_name,' ', u.last_name) as agent_name, concat(p.province_name, ', ', d.district_name) as location, DATE_FORMAT(m.migration_date, '%M %d, %Y %r') as migration_date from migrations m, users u, citizen c, province p, district d where m.citizen_id = '"+id+"' AND m.citizen_id=c.citizen_id AND m.user_id=u.user_id AND m.province_id=p.province_id AND m.district_id=d.district_id";
+		var sql =  "SELECT m.*, concat(c.first_name, ' ', c.last_name) as citizen_name, concat(u.first_name,' ', u.last_name) as agent_name, concat(p.province_name, ', ', d.district_name) as location, DATE_FORMAT(m.migration_date, '%M %d, %Y %r') as migration_date FROM migrations m, users u, citizen c, province p, district d where m.citizen_id = '"+id+"' AND m.citizen_id=c.citizen_id AND m.user_id=u.user_id AND m.province_id=p.province_id AND m.district_id=d.district_id";
 
 		migrationsTable.query(sql, function(err, rows, fields) {
 

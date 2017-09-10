@@ -4,7 +4,7 @@ function moveCitizenClicked(){
 } 
 
 /* Pull all districts */
-function pullDistricts(){
+function pullDistricts(priv){
 	var select = document.getElementById("selectProvince");
 	var province_id = select.options[select.selectedIndex].value;
 
@@ -12,13 +12,21 @@ function pullDistricts(){
 	callAjax("GET", "http://localhost:3000/api/districts/"+province_id, function(results){
 		
 		var results = JSON.parse(results);
-		// Clean first
-		$( "select[name='district']" ).html("<option value=''>--Select--</option>");
+		// Clean first according to privilege type
+		if( priv === 'admin'){
+			$( "select[name='district']" ).html("<option value=''>--Select--</option><option value='*'>All</option>");
+		}else{
+			$( "select[name='district']" ).html("<option value=''>--Select--</option>");
+		}
 		
 		// Set districts options
 		if(results.data.length === 0){
 			// NO data. Clean the list
-			$( "select[name='district']" ).html("<option value=''>--Select--</option>");
+			if( priv === 'admin'){
+				$( "select[name='district']" ).html("<option value=''>--Select--</option><option value='*'>All</option>");
+			}else{
+				$( "select[name='district']" ).html("<option value=''>--Select--</option>");
+			}
 		}else{
 			var optionsAsString = "";
 			for(var i = 0; i < results.data.length; i++) {
@@ -31,7 +39,7 @@ function pullDistricts(){
 }
 
 /* Pull all imirenge */
-function pullImirenge(){
+function pullImirenge(priv){
 	var select = document.getElementById("selectDistrict");
 	var district_id = select.options[select.selectedIndex].value;
 
@@ -40,13 +48,21 @@ function pullImirenge(){
 		
 		var results = JSON.parse(results);
 
-		// Clean first
-		$( "select[name='umurenge']" ).html("<option value=''>--Select--</option>");
+		// Clean first according to privilege type
+		if( priv === 'admin'){
+			$( "select[name='umurenge']" ).html("<option value=''>--Select--</option><option value='*'>All</option>");
+		}else{
+			$( "select[name='umurenge']" ).html("<option value=''>--Select--</option>");
+		}
 
 		// Set districts options
 		if(results.data.length === 0){
 			// NO data. Clean the list
-			$( "select[name='umurenge']" ).html("<option value=''>--Select--</option>");
+			if( priv === 'admin'){
+				$( "select[name='umurenge']" ).html("<option value=''>--Select--</option><option value='*'>All</option>");
+			}else{
+				$( "select[name='umurenge']" ).html("<option value=''>--Select--</option>");
+			}
 		}else{
 			var optionsAsString = "";
 
@@ -60,7 +76,7 @@ function pullImirenge(){
 }
 
 /* Pull all utugari*/
-function pullUtugari(){
+function pullUtugari(priv){
 	var select = document.getElementById("selectUmurenge");
 	var umurenge_id = select.options[select.selectedIndex].value;
 
@@ -70,11 +86,19 @@ function pullUtugari(){
 		var results = JSON.parse(results);
 
 		// Clean first
-		$( "select[name='akagari']" ).html("<option value=''>--Select--</option>");
+		if( priv === 'admin'){
+			$( "select[name='akagari']" ).html("<option value=''>--Select--</option><option value='*'>All</option>");
+		}else{
+			$( "select[name='akagari']" ).html("<option value=''>--Select--</option>");
+		}
 
 		if(results.data.length === 0){
 			// NO data. Clean the list
-			$( "select[name='akagari']" ).html("<option value=''>--Select--</option>");
+			if( priv === 'admin'){
+				$( "select[name='akagari']" ).html("<option value=''>--Select--</option><option value='*'>All</option>");
+			}else{
+				$( "select[name='akagari']" ).html("<option value=''>--Select--</option>");
+			}
 		}else{
 			// Set districts options
 			var optionsAsString = "";
@@ -87,6 +111,39 @@ function pullUtugari(){
 	});
 }
 
+/* Pull imidugudu */
+function pullImidugudu(priv){
+	var select = document.getElementById("selectAkagari");
+	var akagari_id = select.options[select.selectedIndex].value;
+
+	// Call the api with ajax
+	callAjax("GET", "http://localhost:3000/api/umudugudu/"+akagari_id, function(results){
+		
+		var results = JSON.parse(results);
+
+		// Clean first
+		$( "select[name='umudugudu']" ).html("<option value=''>--Select--</option>");
+
+		if(results.data.length === 0){
+			// NO data. Clean the list
+			$( "select[name='umudugudu']" ).html("<option value=''>--Select--</option>");
+		}else{
+			// Set districts options
+			var optionsAsString = "";
+			for(var i = 0; i < results.data.length; i++) {
+			    optionsAsString += "<option value='" + results.data[i].umudugudu_id + "'>" + results.data[i].umudugudu_name + "</option>";
+			}
+
+			$( "select[name='umudugudu']" ).append( optionsAsString );
+		}
+	});
+}
+
+
+
+/************************************
+********** ADMINISTRATION ***********
+*************************************/
 
 /**********************************************/
 /* AJAX helper function */

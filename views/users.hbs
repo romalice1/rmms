@@ -35,18 +35,14 @@
 				                <th>Names <i class='fa fa-sort pull-right'></i></th>
 				                <th>Phone <i class='fa fa-sort pull-right'></i></th>
 				                <th>Email <i class='fa fa-sort pull-right'></i></th>
-				                <th>Privilege <i class='fa fa-sort pull-right'></i></th>
+				                <th>Privilege</i></th>
 				                <th>Status</th>
 				            </tr>
 			            </thead>
 			            <tbody>
 			            	{{#each users as |user|}}
 					            <tr class="gradeX">
-					                <td>
-					                	<a href='/show-citizen/{{user.id}}'>
-					                		{{user.first_name}} {{user.last_name}}
-					                	</a>
-					                </td>
+					                <td>{{user.first_name}} {{user.last_name}}</td>
 					                <td>{{user.phone}}</td>
 					                <td>{{user.email}}</td>
                                     <td>{{user.privilege}}</td>

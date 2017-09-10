@@ -41,7 +41,11 @@ router.get('/users', function(req, res, next) {
 router.get('/new-user', function(req, res, next) {
 	/*Authenticate this route*/
 	session.authenticateRoute(req, res, function(state){
-		res.render('new-user');
+		//Pull provinces to start with
+		client.get(ENV.host+"/api/provinces/1", function (data, response){
+			console.log(data.data)
+			res.render('new-user', {provinces: data.data});
+		});
 	});
 });
 
