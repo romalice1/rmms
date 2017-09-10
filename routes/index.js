@@ -27,6 +27,9 @@ router.get('/api/umurenge/:district_id', administrativesController.getUmurenge);
 /** get akagari list */
 router.get('/api/akagari/:umurenge_id', administrativesController.getAkagari);
 
+/** get umudugudu list */
+router.get('/api/umudugudu/:akagari_id', administrativesController.getUmudugudu);
+
 /* get a scecific citizen */
 router.get('/api/citizens/:citizen_id', citizenController.findById);
 
@@ -38,7 +41,7 @@ router.post('/api/move-citizen', citizenController.moveCitizen)
 
 /* Get a list of all registered citizens */
 //SCOPE: put '*' if you want all. Else, put a province or district id
-router.get('/api/citizens/:scope_province/:scope_district', citizenController.findAllCitizens);
+router.get('/api/citizens/:scope_province/:scope_district/:scope_umurenge/:scope_akagari', citizenController.findAllCitizens);
 
 /* Get citizen's recent activities */
 router.get('/api/citizen/history/:citizen_id', citizenController.getMigrationHistory);
@@ -109,12 +112,12 @@ router.get('/citizens', function(req, res, next){
 		
 		// Admin privilege sees all citizens
 		if(req.session.data.privilege_admin){
-			client.get(ENV.host+"/api/citizens/*/*", function (data, response){
+			client.get(ENV.host+"/api/citizens/*/*/*/*", function (data, response){
 				res.render('citizens', {citizens: data.results})
 			})
 		}else{
 			// User privilege sees limited citizens
-			client.get(ENV.host+"/api/citizens/"+req.session.data.scope_province+"/"+req.session.data.scope_district, function (data, response){
+			client.get(ENV.host+"/api/citizens/"+req.session.data.scope_province+"/"+req.session.data.scope_district+"/"+req.session.data.scope_umurenge+"/"+req.session.data.scope_akagari, function (data, response){
 				res.render('citizens', {citizens: data.results})
 			})
 		}
@@ -137,6 +140,12 @@ router.post('/citizens', function(req, res, next){
 			res.render('citizens', {citizens: data.results})
 		})
 	});
+});
+
+//test
+router.get('/testme/:name', function(req, res, next){
+	// return res.render('testme', {name: req.params.name});
+	res.render('testme', {name:req.params.name});
 });
 
 

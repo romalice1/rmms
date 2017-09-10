@@ -5,30 +5,36 @@ class administrativesController {
 
     // Find all provinces
     static getProvinces(request, response, next) {
-        Administratives.findProvinces( request, function(results) {
+        Administratives.findProvinces( request, function (results) {
             response.send({ data: results });
         });     
     }
 
     // Find all districts
     static getDistricts(request, response, next) {
-        Administratives.findDistricts( request, function(results) {
+        Administratives.findDistricts( request, function (results) {
             response.json({data: results});
         });     
     }
 
     // Find all imirenge
     static getUmurenge(request, response, next) {
-        Administratives.findUmurenge( request, function(results) {
+        Administratives.findUmurenge( request, function (results) {
             response.send({ data: results });
         });     
     }
 
      // Find all utugari
     static getAkagari(request, response, next) {
-        Administratives.findAkagari( request, function(results) {
+        Administratives.findAkagari( request, function (results) {
             response.send({ data: results });
         });     
+    }
+
+    static getUmudugudu(request, response, next){
+        Administratives.findUmudugudu( request, function (results){
+            response.send({data:results});
+        });
     }
 }
 
