@@ -1,3 +1,8 @@
+/****************************************************
+	THIS FILE IS CRUCIAL TO THE FUNCTIONALITY OF THE APP.
+	PLEASE DON'T NEITHER REMOVE OR MODIFY IT.
+*/
+
 /* move citizen */
 function moveCitizenClicked(){
 	console.log('Clicked');
@@ -138,7 +143,16 @@ function pullImidugudu(priv){
 		}
 	});
 }
-
+/********************************
+	CITIZEN CONTROLS
+******************************/
+/* View a single citizen information */
+function getOneCitizen(citizen_id){
+	callAjax("GET", "http://localhost:3000/api/citizens/"+citizen_id, function(results){
+		//Change location and pass the data to the new location
+		window.location.replace("http://localhost:3000/show-citizen?cid="+citizen_id);
+	});
+}
 
 
 /************************************

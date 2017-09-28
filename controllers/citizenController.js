@@ -12,7 +12,7 @@ class citizenController {
     static moveCitizen(request, response, next) {
         Citizen.moveCitizen( request, function(results) {
             //Redirect to view citizen
-            response.redirect('/show-citizen/'+results.citizen_id);
+            response.redirect('/show-citizen?cid='+results.citizen_id);
             // response.send({results});
         });     
     }
