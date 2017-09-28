@@ -20,7 +20,7 @@
     "nodemailer": "^4.1.0",
     "serve-favicon": "~2.4.2",
     "underscore": "^1.8.3",
-    "md5":"^2.0.0",
-    "node-rest-client":"^0.8.0"
+    "md5": "^2.0.0",
+    "node-rest-client": "^3.1.0"
   }
 }
