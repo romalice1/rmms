@@ -72,7 +72,7 @@ router.get('/show-citizen', function(req, res, next) {
 		//Get citizen information
 		client.get(ENV.host+"/api/citizens/"+citizen_id, function (citizen_data, response) {
 			//Get citizen activity history
-			client.get(ENV.host+"/api/citizen/history/"+req.params.citizen_id, function (history_data, response) {
+			client.get(ENV.host+"/api/citizen/history/"+citizen_id, function (history_data, response) {
 				res.render('viewCitizen', { citizen: citizen_data.data[0], activities: history_data });
 			});
 		});
@@ -99,7 +99,6 @@ router.get('/move-citizen', function(req, res, next) {
 		client.get(ENV.host+"/api/provinces/1", function (provincedata, response) {
 		    // parsed response body as js object 
 		    res.render('move-citizen', { citizen: citizendata.data[0], provinces:provincedata.data });
-		    next();
 		
 		});
 	});

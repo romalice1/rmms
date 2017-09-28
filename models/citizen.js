@@ -186,7 +186,10 @@ class citizen{
 		console.log('MyID: '+id);
 		migrationsTable = new MigrationsTable();
 
-		var sql =  "SELECT m.*, concat(c.first_name, ' ', c.last_name) as citizen_name, concat(u.first_name,' ', u.last_name) as agent_name, concat(p.province_name, ', ', d.district_name) as location, DATE_FORMAT(m.migration_date, '%M %d, %Y %r') as migration_date FROM migrations m, users u, citizen c, province p, district d where m.citizen_id = '"+id+"' AND m.citizen_id=c.citizen_id AND m.user_id=u.user_id AND m.province_id=p.province_id AND m.district_id=d.district_id";
+		var sql =  "SELECT m.*, concat(c.first_name, ' ', c.last_name) as citizen_name, concat(u.first_name,' ', u.last_name) as agent_name, concat(aka.akagari_name, ', ', umu.umudugudu_name) as location, DATE_FORMAT(m.migration_date, '%M %d, %Y %r') as migration_date FROM migrations m, users u, citizen c, akagari aka, umudugudu umu where m.citizen_id = '"+id+"' AND m.citizen_id=c.citizen_id AND m.user_id=u.user_id AND m.akagari_id=aka.akagari_id AND m.umudugudu_id=umu.umudugudu_id";
+
+		// var sql =  "SELECT m.*, concat(c.first_name, ' ', c.last_name) as citizen_name, concat(u.first_name,' ', u.last_name) as agent_name, concat(p.province_name, ', ', d.district_name) as location, DATE_FORMAT(m.migration_date, '%M %d, %Y %r') as migration_date FROM migrations m, users u, citizen c, province p, district d where m.citizen_id = '"+id+"' AND m.citizen_id=c.citizen_id AND m.user_id=u.user_id AND m.province_id=p.province_id AND m.district_id=d.district_id";
+
 
 		migrationsTable.query(sql, function(err, rows, fields) {
 
