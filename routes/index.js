@@ -61,27 +61,37 @@ router.get('/', function(req, res, next) {
 	}
 });
 /*Show individual citizen*/
-router.get('/show-citizen/:citizen_id', function(req, res, next) {
+router.get('/show-citizen', function(req, res, next) {
 	/* Authenticate this route */
 	session.authenticateRoute(req, res, function(state){
+		//original url: /show-citizen?cid=xxxxxxxxxxxxxx
+		var orUrl = req.originalUrl.split("=");
+		//Get citizen_id: the xxxxxxxx part
+		var citizen_id = orUrl[1];
+
 		//Get citizen information
-		client.get(ENV.host+"/api/citizens/"+req.params.citizen_id, function (citizen_data, response) {
+		client.get(ENV.host+"/api/citizens/"+citizen_id, function (citizen_data, response) {
 			//Get citizen activity history
-			client.get(ENV.host+"/api/citizen/history/"+req.params.citizen_id, function (history_data, response) {
-				console.log("History: "+JSON.stringify(history_data) );
+			client.get(ENV.host+"/api/citizen/history/"+citizen_id, function (history_data, response) {
 				res.render('viewCitizen', { citizen: citizen_data.data[0], activities: history_data });
-		    	next();
 			});
 		});
 	});
 });
 
+
 /* GET view-move-citizen. */
-router.get('/move-citizen/:citizen_id', function(req, res, next) {
+router.get('/move-citizen', function(req, res, next) {
 	/* Authenticate this route */
 	session.authenticateRoute(req, res, function(state){
+		
+		//original url: /show-citizen?cid=xxxxxxxxxxxxxx
+		var orUrl = req.originalUrl.split("=");
+		//Get citizen_id: the xxxxxxxx part
+		var citizen_id = orUrl[1];
+
 		var citizendata = '';
-		client.get(ENV.host+"/api/citizens/"+req.params.citizen_id, function (data, response) {
+		client.get(ENV.host+"/api/citizens/"+citizen_id, function (data, response) {
 		    // Get all provinces
 		    citizendata = data;
 		});
@@ -89,7 +99,6 @@ router.get('/move-citizen/:citizen_id', function(req, res, next) {
 		client.get(ENV.host+"/api/provinces/1", function (provincedata, response) {
 		    // parsed response body as js object 
 		    res.render('move-citizen', { citizen: citizendata.data[0], provinces:provincedata.data });
-		    next();
 		
 		});
 	});

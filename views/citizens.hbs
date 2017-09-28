@@ -43,9 +43,12 @@
 			            	{{#each citizens as |citizen|}}
 					            <tr class="gradeX">
 					                <td>
-					                	<a href='/show-citizen/{{citizen.citizen_id}}'>
+					                	{{!-- <a href='/show-citizen/{{citizen.citizen_id}}'>
 					                		{{citizen.first_name}} {{citizen.last_name}}
-					                	</a>
+					                	</a> --}}
+                                        <a onclick="getOneCitizen('{{citizen.citizen_id}}')">
+                                            {{citizen.first_name}} {{citizen.last_name}}
+                                        </a>
 					                </td>
 					                <td>{{citizen.phone}}</td>
 					                <td>{{citizen.umurenge_name}}</td>
