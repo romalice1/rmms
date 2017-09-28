@@ -81,11 +81,17 @@ router.get('/show-citizen', function(req, res, next) {
 
 
 /* GET view-move-citizen. */
-router.get('/move-citizen/:citizen_id', function(req, res, next) {
+router.get('/move-citizen', function(req, res, next) {
 	/* Authenticate this route */
 	session.authenticateRoute(req, res, function(state){
+		
+		//original url: /show-citizen?cid=xxxxxxxxxxxxxx
+		var orUrl = req.originalUrl.split("=");
+		//Get citizen_id: the xxxxxxxx part
+		var citizen_id = orUrl[1];
+
 		var citizendata = '';
-		client.get(ENV.host+"/api/citizens/"+req.params.citizen_id, function (data, response) {
+		client.get(ENV.host+"/api/citizens/"+citizen_id, function (data, response) {
 		    // Get all provinces
 		    citizendata = data;
 		});
