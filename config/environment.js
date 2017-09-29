@@ -1,7 +1,7 @@
 "use strict";
 
 var ENV = {
-	host: 'http://localhost:3000',
+	host: 'https://nameless-garden-16503.herokuapp.com',
 	DB: {
 		connAttr: {
 		  host     : 'us-cdbr-iron-east-05.cleardb.net',

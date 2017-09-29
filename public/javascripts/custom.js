@@ -3,6 +3,12 @@
 	PLEASE DON'T NEITHER REMOVE OR MODIFY IT.
 */
 
+/* ENVIRONMENT SETTINGS */
+var ENV = {
+	host: "https://nameless-garden-16503.herokuapp.com"
+};
+/*************/
+
 /* move citizen */
 function moveCitizenClicked(){
 	console.log('Clicked');
@@ -14,7 +20,7 @@ function pullDistricts(priv){
 	var province_id = select.options[select.selectedIndex].value;
 
 	// Call the api with ajax
-	callAjax("GET", "http://localhost:3000/api/districts/"+province_id, function(results){
+	callAjax("GET", ENV.host+"/api/districts/"+province_id, function(results){
 		
 		var results = JSON.parse(results);
 		// Clean first according to privilege type
@@ -49,7 +55,7 @@ function pullImirenge(priv){
 	var district_id = select.options[select.selectedIndex].value;
 
 	// Call the api with ajax
-	callAjax("GET", "http://localhost:3000/api/umurenge/"+district_id, function(results){
+	callAjax("GET", ENV.host+"/api/umurenge/"+district_id, function(results){
 		
 		var results = JSON.parse(results);
 
@@ -86,7 +92,7 @@ function pullUtugari(priv){
 	var umurenge_id = select.options[select.selectedIndex].value;
 
 	// Call the api with ajax
-	callAjax("GET", "http://localhost:3000/api/akagari/"+umurenge_id, function(results){
+	callAjax("GET", ENV.host+"/api/akagari/"+umurenge_id, function(results){
 		
 		var results = JSON.parse(results);
 
@@ -122,7 +128,7 @@ function pullImidugudu(priv){
 	var akagari_id = select.options[select.selectedIndex].value;
 
 	// Call the api with ajax
-	callAjax("GET", "http://localhost:3000/api/umudugudu/"+akagari_id, function(results){
+	callAjax("GET", ENV.host+"/api/umudugudu/"+akagari_id, function(results){
 		
 		var results = JSON.parse(results);
 
@@ -148,9 +154,9 @@ function pullImidugudu(priv){
 ******************************/
 /* View a single citizen information */
 function getOneCitizen(citizen_id){
-	callAjax("GET", "http://localhost:3000/api/citizens/"+citizen_id, function(results){
+	callAjax("GET", ENV.host+"/api/citizens/"+citizen_id, function(results){
 		//Change location and pass the data to the new location
-		window.location.replace("http://localhost:3000/show-citizen?cid="+citizen_id);
+		window.location.replace(ENV.host+"/show-citizen?cid="+citizen_id);
 	});
 }
 
