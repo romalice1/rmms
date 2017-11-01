@@ -1,30 +1,35 @@
 "use strict";
 
-var DBInterface = require('./dbInterface');
+var conn= require('./dbInterface');
 var md5 = require('md5');
 var mailer = require('../helpers/mailer');
 
-// Select table
-var UserTable = DBInterface.extend({
-    tableName: "users"
-});
+// Use mysql connection cb (callback)
+function useConnection(sql, cb){
+    conn.connect(function (err) {
+        if (err) throw err;
+        conn.query(sql, function (err, rows){
+            if(err) throw err;
+            cb(rows);
+        } );
+    });
+}
 
-var userTable = null; // instance
 
 class user{
 
     /* Find all citizens */
+    /*
     static findAll(request, callback){
-        userTable = new UserTable();
         
         var sql = "SELECT * FROM users ORDER BY first_name ASC"; 
-        
-        userTable.query(sql, function(err, rows, fields) {
+        useConnection(sql, function(rows){
             callback(rows);
-        });
+        })
     }
-
+    */
     /* Create a new user */
+    /*
     static create(request, callback){
         //Verify if we don't have a user with a such email
         this.findUserByEmail( request.body.email, function(rows){
@@ -56,7 +61,7 @@ class user{
                         console.log(err);
                         callback({code:'101', message:'There was an internal error'});
                     }else{
-                        /* Send email message to the user */
+                        // Send email message to the user 
                         var mailparams = {
                             mailto: request.body.email,
                             mailsubject: 'Welcome to RIMS',
@@ -70,16 +75,15 @@ class user{
             }
         } );
     }
+    */
 
     /* Authenticate user */
     static authenticate(username, password, callback){
-        userTable = new UserTable();
-        userTable.query("SELECT * FROM users WHERE email='"+username+"' AND password='"+password+"'", function(err, rows, fields){
-            if(err){
-                console.log(err);
-                callback({code:'101', message:'There was an internal error'});
-            }else{
-                if(rows.length === 0){
+        var sql = "SELECT * FROM users WHERE email='"+username+"' AND password='"+password+"'";
+        
+        useConnection(sql, function(rows){
+            console.log("DATA HERE COMES: "+rows);
+            if(rows.length === 0){
                     // No record
                     callback({code:'101', message:'Incorrect username or password'});
                 }else{
@@ -109,17 +113,17 @@ class user{
                     // Successfully authenticated
                     callback({code:'100', message:'User successfully authenticated', data:data});
                 }
-            }
-        });
-    }
 
+        })
+    }
+    /*
     static findUserByEmail(email, callback){
         userTable = new UserTable();
         userTable.query("SELECT * FROM users WHERE email='"+email+"'", function(err, rows, fields){
             callback(rows.length);
         });
     }
-
+    */
 }
 
 module.exports = user;

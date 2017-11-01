@@ -1,19 +1,7 @@
 "use strict";
 
-var DBInterface = require('./dbInterface');
+var conn = require('./dbInterface');
 var md5 = require('md5');
-
-// Select table
-var CitizenTable = DBInterface.extend({
-	tableName: "citizen"
-});
-
-var MigrationsTable = DBInterface.extend({
-	tableName: "migrations"
-});
-
-var citizenTable = null; // instance
-var migrationsTable = null;
 
 class citizen{
 
@@ -44,7 +32,7 @@ class citizen{
 			    }
 			});
 		}
-		
+		/*
 		citizenTable = new CitizenTable({
 			citizen_id: 						id,
 			first_name: 						request.body.first_name,
@@ -70,12 +58,12 @@ class citizen{
 			employer_phone: 					request.body.employer_phone_number,
 			employer_residence: 				request.body.employer_curr_residence
 		});
+		*/
 
-		citizenTable.save(function(rows){
-			console.log('Affected rows are: ' + rows);
-			callback('Created! '+rows);
+		conn.connect(function(err){
+			if (err) throw err;
+			// var 
 		});
-
 	}
 
 	/* Move citizen */

@@ -1,12 +1,11 @@
-var mysqlModel = require('mysql-model');
+var mysql = require('mysql');
 var ENV = require('../config/environment');
 
-var AppModel = mysqlModel.createConnection(ENV.DB.connAttr, function(err){
-	if(!err){
-		console.log('Connection established');
-	}else{
-		console.log('Could not establish the app connection. Contact your system administrator.');
-	}
-});
+var conn = mysql.createConnection( ENV.DB.connAttr );
 
-module.exports = AppModel;
+// conn.connect(function(err){
+// 	if (err) throw err;
+//   	console.log("Connected!");
+// })
+
+module.exports = conn;
