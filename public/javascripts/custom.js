@@ -4,9 +4,22 @@
 */
 
 /* ENVIRONMENT SETTINGS */
+var hostname='';
+
+// Check if environment is 'dev'
+if(window.location.hostname === 'localhost'){
+	hostname = 'http://'+window.location.hostname+':3000'
+}else{
+	// Environment is 'prod'
+	hostname = 'http://'+window.location.hostname
+}
+
 var ENV = {
-	host: "https://nameless-garden-16503.herokuapp.com"
+	/* If environment is 'dev' we add port 3000 to the URL*/
+	host: hostname
 };
+
+console.log('Env is: '+ENV.host)
 /*************/
 
 /* move citizen */
