@@ -3,12 +3,18 @@
 var conn = require('./dbInterface');
 var md5 = require('md5');
 
-class citizen{
+// Use mysql connection cb (callback)
+function useConnection(sql, cb){
+    conn.connect(function (err) {
+        if (err) throw err;
+        conn.query(sql, function (err, rows){
+            if(err) throw err;
+            cb(rows);
+        } );
+    });
+}
 
-	/* Constructor */
-	citizen(){
-		citizenTable = new CitizenTable();
-	}
+class citizen{
 
 	/* Create a new citizen record*/
 	static createNewCitizen(request, callback){
@@ -32,7 +38,7 @@ class citizen{
 			    }
 			});
 		}
-		/*
+		
 		citizenTable = new CitizenTable({
 			citizen_id: 						id,
 			first_name: 						request.body.first_name,
@@ -58,12 +64,62 @@ class citizen{
 			employer_phone: 					request.body.employer_phone_number,
 			employer_residence: 				request.body.employer_curr_residence
 		});
-		*/
-
-		conn.connect(function(err){
-			if (err) throw err;
-			// var 
-		});
+		
+		var sql = ""
+			+"INSERT INTO citizen("
+				+"citizen_id,"
+				+"first_name," 						
+				+"last_name,"				
+				+"national_id," 			
+				+"date_of_birth," 			
+				+"place_of_birth," 		
+				+"phone," 				
+				+"email,"			
+				+"country_id," 	
+				+"province_id," 			
+				+"district_id,"			
+				+"umurenge_id,"			
+				+"akagari_id,"					
+				+"umudugudu_id," 						
+				+"photo_file_path,"					
+				+"father_name,"					
+				+"mother_name,"						
+				+"parents_current_residence," 			
+				+"parents_contact_phone," 				
+				+"employer_name,"		
+				+"employer_identification_number," 	
+				+"employer_phone,"				
+				+"employer_residence)"
+			+"VALUES("
+				+"'id'"
+				+"'request.body.first_name'"
+				+"'request.body.last_name'"
+				+"'request.body.nid'"
+				+"'request.body.dob'"
+				+"'request.body.place_of_birth'"
+				+"'request.body.phone_number'"
+				+"'request.body.email'"
+				+"'request.body.country'"
+				+"'request.body.province'"
+				+"'request.body.district'"
+				+"'request.body.umurenge'"
+				+"'request.body.akagari'"
+				+"'request.body.umudugudu'"
+				+"'filename'"
+				+"'request.body.father'"
+				+"'request.body.mother'"
+				+"'request.body.parents_curr_residence'"
+				+"'request.body.parents_contact_phone'"
+				+"'request.body.employer_name'"
+				+"'request.body.employer_nid'"
+				+"'request.body.employer_phone_number'"
+				+"'request.body.employer_curr_residence'"
+			+")";
+			
+		useConnection(sql, function(rows){
+			if(rows)
+				console.log("data inserted");
+		})
 	}
 
 	/* Move citizen */
@@ -110,7 +166,7 @@ class citizen{
 
 	/* FInd all citizens */
 	static findAll(request, callback){
-		citizenTable = new CitizenTable();
+		
 		console.log(request.params);
 		// Filter by view scope
 		var sql;
@@ -135,8 +191,7 @@ class citizen{
 			}
 		}
 		
-		citizenTable.query(sql, function(err, rows, fields) {
-
+		useConnection(sql, function(rows) {
 		    callback(rows);
 		});
 	}

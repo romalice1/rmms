@@ -18,7 +18,7 @@ function useConnection(sql, cb){
 
 class user{
 
-    /* Find all citizens */
+    /* Find all users */
     /*
     static findAll(request, callback){
         
